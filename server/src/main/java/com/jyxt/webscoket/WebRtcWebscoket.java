@@ -1,65 +1,30 @@
 package com.jyxt.webscoket;
-import org.springframework.stereotype.Service;
-import org.springframework.web.socket.CloseStatus;
-import org.springframework.web.socket.WebSocketHandler;
-import org.springframework.web.socket.WebSocketMessage;
-import org.springframework.web.socket.WebSocketSession;
 
-import java.util.Map;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.socket.CloseStatus;
+import org.springframework.web.socket.TextMessage;
+import org.springframework.web.socket.WebSocketSession;
+import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 /**
  * Created by Administrator on 2017/7/16 0016.
  */
-@Service("webRtc")
-public class WebRtcWebscoket implements WebSocketHandler {
-    /**
-     * 建立连接
-     * @param webSocketSession
-     * @throws Exception
-     */
+@RequestMapping("webRtc")
+public class WebRtcWebscoket extends TextWebSocketHandler {
     @Override
-    public void afterConnectionEstablished(WebSocketSession webSocketSession) throws Exception {
-
-    }
-
-    /**
-     * 处理信息
-     * @param webSocketSession
-     * @param webSocketMessage
-     * @throws Exception
-     */
-    @Override
-    public void handleMessage(WebSocketSession webSocketSession, WebSocketMessage<?> webSocketMessage) throws Exception {
-
-
-
-
-    }
-
-    /**
-     * 发生错误
-     * @param webSocketSession
-     * @param throwable
-     * @throws Exception
-     */
-    @Override
-    public void handleTransportError(WebSocketSession webSocketSession, Throwable throwable) throws Exception {
-
-    }
-
-    /**
-     * 关闭连接
-     * @param webSocketSession
-     * @param closeStatus
-     * @throws Exception
-     */
-    @Override
-    public void afterConnectionClosed(WebSocketSession webSocketSession, CloseStatus closeStatus) throws Exception {
-
+    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+        System.out.println("建立列按揭");
     }
 
     @Override
-    public boolean supportsPartialMessages() {
-        return false;
+    protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+       String jsonData= message.getPayload();
+        System.out.println(jsonData);
+    }
+
+    @Override
+    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+
     }
 }

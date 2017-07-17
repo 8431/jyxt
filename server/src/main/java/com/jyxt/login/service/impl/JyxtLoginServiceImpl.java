@@ -28,9 +28,11 @@ public class JyxtLoginServiceImpl implements JyxtLoginService {
             name=name.trim();
             pass=pass.trim();
         }
-        String sql="select * from login where name='"+name+"' and password='"+pass+"'";
+        String sql="select * from login where name=#{0,jdbcType=VARCHAR} and password=#{1,jdbcType=VARCHAR}";
         Map sqlMp=new HashMap();
         sqlMp.put("sql",sql);
+        sqlMp.put("name",name);
+        sqlMp.put("pass",pass);
         List re=indexdao.queryBySql(sqlMp);
         if(re!=null&&re.size()==1){
             result=re.size();
